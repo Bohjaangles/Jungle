@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
         product: product,
         quantity: quantity,
         item_price: product.price,
-        total_price: product.price * quantity
+        total_price: product.price * quantity 
       )
     end
     order.save!
