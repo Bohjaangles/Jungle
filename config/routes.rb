@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'categories/index'
+    get 'categories/create'
+    get 'categories/new'
+  end
   get 'about/index'
   root to: 'products#index'
 
