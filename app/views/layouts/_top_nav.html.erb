@@ -68,6 +68,17 @@
           <a href="/about/index" class="nav-link ">About Us</a>
         </li>
       </ul>
+      <hr>
+      <ul class="navbar-nav">
+        <% if current_user %>
+        <!-- current_user will return true if a user is logged in -->
+          <%= "Logged in as #{current_user.email}" %> | <%= link_to 'Home', root_path %> | <%= link_to 'Log Out', logout_path, method: :delete %>
+        <% else %>
+          <!-- not logged in -->
+         <li> <%= link_to 'Home', root_path %> </li> &nbsp; , &nbsp; <li><%= link_to 'Log In', login_path %></li> &nbsp; or &nbsp; <li><%= link_to 'Sign Up', new_user_path %></li>
+        <% end %>
+        <hr>
+      </ul>
     </div>
   </div>
 </nav>
