@@ -10,9 +10,12 @@ Rails.application.routes.draw do
 
   # sign up page with form:
 	get 'users/new' => 'users#new', as: :new_user
-	
 	# create (post) action for when sign up form is submitted:
 	post 'users' => 'users#create'
+
+	get '/login'     => 'sessions#new'
+	post '/login'    => 'sessions#create'
+	delete '/logout' => 'sessions#destroy'
 
   resources :products, only: [:index, :show]
   resources :categories, only: [:show, :index]
