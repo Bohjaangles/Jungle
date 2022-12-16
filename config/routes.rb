@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   get 'about/index'
   root to: 'products#index'
 
+  # sign up page with form:
+	get 'users/new' => 'users#new', as: :new_user
+	
+	# create (post) action for when sign up form is submitted:
+	post 'users' => 'users#create'
+
   resources :products, only: [:index, :show]
   resources :categories, only: [:show, :index]
 
