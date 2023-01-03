@@ -49,4 +49,28 @@ RSpec.describe User, type: :model do
       end
     end    
   end
+  describe '.authenticate_with_credentials' do
+    describe "should only pass if email and password match the user" do
+      it "should pass given the above are both correct" do
+        user1 = User.create({first_name: 'first', last_name: 'last', email: 'example@email.com', password: 'examplepass', password_confirmation: 'examplepass'})
+        user = User.authenticate_with_credentials('example@email.com', 'examplepass')
+        expect(user).to_not be_nil()
+      end
+      it "should return nil if the password is incorrect" do
+        user1 = User.create({first_name: 'first', last_name: 'last', email: 'example@email.com', password: 'examplepass', password_confirmation: 'examplepass'})
+        user = User.authenticate_with_credentials('example@email.com', 'wrongpass')
+        expect(user).to be_nil()
+      end
+      it "should return nil if the email is incorrect" do
+        user1 = User.create({first_name: 'first', last_name: 'last', email: 'example@email.com', password: 'examplepass', password_confirmation: 'examplepass'})
+        user = User.authenticate_with_credentials('wrong@email.com', 'examplepass')
+        expect(user).to be_nil()
+      end
+      it "should pass given the above are both correct and there is email white space and capitalization" do
+        user1 = User.create({first_name: 'first', last_name: 'last', email: 'example@email.com', password: 'examplepass', password_confirmation: 'examplepass'})
+        user = User.authenticate_with_credentials(' eXAmple@emAIl.com  ', 'examplepass')
+        expect(user).to_not be_nil()
+      end
+    end
+  end
 end
