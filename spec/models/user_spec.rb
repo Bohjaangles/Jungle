@@ -12,6 +12,16 @@ RSpec.describe User, type: :model do
         expect(new_user1).to_not be_valid()
       end   
     end
+    describe "password must be 8 chars in length to be accepted" do
+      it "Should fail if password is less than 8 chars" do
+        new_user1 = User.create({first_name: 'first', last_name: 'last', email: 'example@email.com', password: 'example', password_confirmation: 'example'})
+        expect(new_user1).to_not be_valid()
+      end
+      it "Should pass if password is 8 or more chars" do
+        new_user1 = User.create({first_name: 'first', last_name: 'last', email: 'example@email.com', password: 'examplep', password_confirmation: 'examplep'})
+        expect(new_user1).to be_valid()
+      end  
+    end
     describe "should require a unique email, no duplicates within the system, case insensitive" do
       it "should fail if a user account creation is attempted with an email already in the system" do
         user1 = User.create({first_name: 'first', last_name: 'last', email: 'example@email.com', password: 'examplepass', password_confirmation: 'examplepass'})
